@@ -14,3 +14,18 @@ def home():
 @views.route('/search', methods=['GET', 'POST'])
 def search():  
     return render_template('search.html', user=current_user)
+
+"""
+Formato que search deve seguir
+def search():
+    if request.method == 'POST':
+        horario = request.form.get('horario')
+        funcionario = request.form.get('funcionario')
+
+        # Realize a lógica de pesquisa com base no horário e funcionário selecionados
+
+        # Renderize o template com os resultados
+        return render_template('search_results.html', results=results)
+    else:
+        return render_template('search.html')
+    """
