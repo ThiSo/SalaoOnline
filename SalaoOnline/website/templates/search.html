@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Pesquisar horários disponíveis</h1>
+<form action="/search" method="post">
+    <label for="horario">Horário:</label>
+    <select name="horario" id="horario" required>
+        <option value="">Selecione um horário</option>
+        {% for hour in range(8, 21) %}
+            {% for minute in ['00', '30'] %}
+                <option value="{{ hour }}:{{ minute }}">{{ hour }}:{{ minute }}</option>
+            {% endfor %}
+        {% endfor %}
+    </select><br>
+
+    <label for="funcionario">Funcionário:</label>
+    <input type="text" name="funcionario" id="funcionario" required><br>
+
+    <input type="submit" value="Pesquisar">
+</form>
+
+{% endblock %}

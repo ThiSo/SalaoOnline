@@ -46,6 +46,7 @@
           {% if user.is_authenticated %}           
             {% if user.type == 'C' %}
               <a class="nav-item nav-link" id="client_page" href="/client_page">Client page</a>
+              <a class="nav-item nav-link" id="search" href="/search">Pesquisar Horarios</a>
             {% elif user.type == 'F' %}
               <a class="nav-item nav-link" id="employee_page" href="/employee_page">Employee page</a>
             {% else %}

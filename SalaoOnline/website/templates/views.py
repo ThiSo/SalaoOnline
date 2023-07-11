@@ -11,3 +11,6 @@ def home():
     return render_template("home.html", user=current_user)  
 
 
+@views.route('/search', methods=['GET', 'POST'])
+def search():  
+    return render_template('search.html', user=current_user)
