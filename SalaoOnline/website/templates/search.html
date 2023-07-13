@@ -2,8 +2,10 @@
 
 {% block content %}
 
-<h1>Pesquisar horários disponíveis</h1>
+<br>
+<h1>Consultar horários disponíveis</h1>
 <form action="/search" method="post">
+    <!--
     <label for="horario">Horário:</label>
     <select name="horario" id="horario" required>
         <option value="">Selecione um horário</option>
@@ -13,11 +15,19 @@
             {% endfor %}
         {% endfor %}
     </select><br>
+    -->
 
-    <label for="funcionario">Funcionário:</label>
+    <label for="funcionario">Consultar por Funcionário:</label>
     <input type="text" name="funcionario" id="funcionario" required><br>
 
     <input type="submit" value="Pesquisar">
+
+    <u1 class="list-group list-group-flush">
+        <br>
+        {% for schedule in schedules %}
+            <li class="list-group list-group-item"> Horário: {{ schedule.data}} - Funcionário: {{ employee }} </li>
+        {% endfor %}
+    </u1>
 </form>
 
 {% endblock %}

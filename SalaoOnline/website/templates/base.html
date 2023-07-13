@@ -46,12 +46,12 @@
           {% if user.is_authenticated %}           
             {% if user.type == 'C' %}
               <a class="nav-item nav-link" id="client_page" href="/client_page">Client page</a>
-              <a class="nav-item nav-link" id="search" href="/search">Pesquisar Horarios</a>
             {% elif user.type == 'F' %}
               <a class="nav-item nav-link" id="employee_page" href="/employee_page">Employee page</a>
             {% else %}
               <a class="nav-item nav-link" id="manager_page" href="/manager_page">Manager page</a>
             {% endif %}
+            <a class="nav-item nav-link" id="search" href="/search">Consultar Horarios</a>
             <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
           {% else %}
             <a class="nav-item nav-link" id="login" href="/login">Login</a>
