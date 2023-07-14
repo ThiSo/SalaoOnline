@@ -16,5 +16,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     name = db.Column(db.String(150))
     age = db.Column(db.Integer)
+    phone = db.Column(db.String(20))
     type = db.Column(db.String(1))
     schedules = db.relationship('Schedule', backref='responsible', lazy=True)
