@@ -42,22 +42,22 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-          <a class="nav-item nav-link" id="home" href="/">Home</a>
+          <a class="nav-item nav-link" id="home" href="/">Página inicial</a>
           {% if user.is_authenticated %}           
             {% if user.type == 'C' %}
-              <a class="nav-item nav-link" id="client_page" href="/client_page">Client page</a>
+              <a class="nav-item nav-link" id="client_page" href="/client_page">Página inicial - Cliente</a>
             {% elif user.type == 'F' %}
-              <a class="nav-item nav-link" id="employee_page" href="/employee_page">Employee page</a>
+              <a class="nav-item nav-link" id="employee_page" href="/employee_page">Página inicial - Funcionário</a>
             {% else %}
-              <a class="nav-item nav-link" id="manager_page" href="/manager_page">Manager page</a>
-              <a class="nav-item nav-link" id="sign_up_employee" href="/sign_up_employee">Sign up Employee</a>
-              <a class="nav-item nav-link" id="alter_employee" href="/alter_employee">Alter Employee</a>
+              <a class="nav-item nav-link" id="manager_page" href="/manager_page">Página inicial - Gerente</a>
+              <a class="nav-item nav-link" id="sign_up_employee" href="/sign_up_employee">Cadastrar Funcionário</a>
+              <a class="nav-item nav-link" id="alter_employee" href="/alter_employee">Alterar Funcionário</a>
             {% endif %}
             <a class="nav-item nav-link" id="search" href="/search">Consultar Horarios</a>
-            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+            <a class="nav-item nav-link" id="logout" href="/logout">Sair</a>
           {% else %}
             <a class="nav-item nav-link" id="login" href="/login">Login</a>
-            <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+            <a class="nav-item nav-link" id="signUp" href="/sign-up">Cadastrar</a>
           {% endif %}
         </div>
       </div>

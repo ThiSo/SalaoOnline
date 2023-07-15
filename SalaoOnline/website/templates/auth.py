@@ -15,7 +15,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
-                flash('Logged in sucessfully!', category='sucess')
+                flash('Logado com sucesso!', category='sucess')
                 login_user(user, remember=True)
                 if user.type == 'C':
                     return redirect(url_for('auth.client_page'))
@@ -24,9 +24,9 @@ def login():
                 else:
                     return redirect(url_for('auth.manager_page'))
             else:
-                flash('Incorrect password, try again!', category='error')
+                flash('Senha incorreta!', category='error')
         else:
-            flash('Email does not exist!', category='error')
+            flash('Este email não existe!', category='error')
 
     return render_template("login.html", title='login', user='current_user')
 
@@ -63,24 +63,24 @@ def sign_up_employee():
         user = User.query.filter_by(email=employee_email).first()
 
         if user:
-            flash('This employee email already exists.', category='error')
+            flash('Ja existe um funcionario com esse email.', category='error')
         elif len(employee_email) < 4:
-            flash('The employee email must be longer than 4 characters', category='error')
+            flash('O email do funcionario deve ter ao menos 4 letras', category='error')
         elif len(employee_name) < 4:
-            flash('The employee name must be longer than 3 characters', category='error')
+            flash('O nome do funcionario deve ter ao menos 3 letras', category='error')
         elif int(employee_age) < 18:
-            flash('The employee must be at least 18 years old to have an account.', category='error')
+            flash('O funcionario deve ser maior de 18 anos para ter uma conta.', category='error')
         elif len(employee_phone) < 8:
-            flash('The employee phone number must have at least 8 digits long!', category='error')
+            flash('O telefone do usuario deve ter ao menos 8 digitos.', category='error')
         elif len(employee_password) < 7:
-            flash('The employee password must be at least 7 characters', category='error')
+            flash('A senha do funcionario deve ter ao menos 7 caracteres.', category='error')
         else:
             new_user = User(name=employee_name, age=employee_age, phone=employee_phone, 
                             email=employee_email, 
                             password=generate_password_hash(employee_password, method='scrypt'), type=type)
             db.session.add(new_user)
             db.session.commit()
-            flash('Employee signed up sucessfully!', category='sucess')
+            flash('Funcionario cadastrado com sucesso!', category='sucess')
     return render_template("sign_up_employee.html", title='Sign up new Employee', user=current_user)
 
 
@@ -111,26 +111,26 @@ def signup():
         user = User.query.filter_by(email=email).first()
 
         if user:
-            flash('This email already exists.', category='error')
+            flash('Este email ja existe.', category='error')
         elif len(email) < 4:
-            flash('Email must be longer than 4 characters', category='error')
+            flash('seu email deve ter ao menos 4 caracteres', category='error')
         elif len(name) < 4:
-            flash('Your name must be longer than 3 characters', category='error')
+            flash('Seu nome deve possuir ao menos 3 letras', category='error')
         elif int(age) < 18:
-            flash('You must be at least 18 years old to create an account!', category='error')
+            flash('Voce deve ser maior de idade para criar uma conta.', category='error')
         elif len(phone) < 8:
-            flash('Your phone number must have at least 8 digits long!', category='error')
+            flash('Seu telefone deve ter ao menos 8 digitos.', category='error')
         elif password1 != password2:
-            flash('Passwords don\'t match', category='error')
+            flash('Senhas nao coincidem.', category='error')
         elif len(password1) < 7:
-            flash('Password must be at least 7 characters', category='error')
+            flash('Sua senha deve ter ao menos 7 caracteres.', category='error')
         else:
             new_user = User(name=name, age=age, phone=phone, 
                             email=email, password=generate_password_hash(password1, method='scrypt'), type=type)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
-            flash('Account created sucessfully!', category='sucess')
+            flash('Conta criada com sucesso!', category='sucess')
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", title='Sign up', user=current_user)

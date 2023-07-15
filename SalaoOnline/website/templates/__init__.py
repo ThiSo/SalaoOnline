@@ -11,7 +11,10 @@ DB_NAME = "database.db"
 def create_app():
     app = Flask(__name__, template_folder='')
     app.config['SECRET_KEY'] = 'carazinho'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+
+    DATABASE_URL = "postgresql://salaoonline_user:vLkCiPFYWEXDUd3M9DVeNYYBrNXRdkJU@dpg-ciou026nqql4qa0jg33g-a.oregon-postgres.render.com/salaoonline"
+    app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
     db.init_app(app)
 
     from .views import views
