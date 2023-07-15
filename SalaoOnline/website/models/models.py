@@ -1,7 +1,7 @@
-from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
+from ..database import db
 
 class Schedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
