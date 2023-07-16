@@ -4,30 +4,49 @@
 
 <br>
 <h1>Consultar horários disponíveis</h1>
-<form action="/search" method="post">
-    <!--
-    <label for="horario">Horário:</label>
-    <select name="horario" id="horario" required>
-        <option value="">Selecione um horário</option>
-        {% for hour in range(8, 21) %}
-            {% for minute in ['00', '30'] %}
-                <option value="{{ hour }}:{{ minute }}">{{ hour }}:{{ minute }}</option>
-            {% endfor %}
-        {% endfor %}
-    </select><br>
-    -->
+<br>
+<style>
+    td, th {
+        padding: 10px; /* Define o espaçamento interno das células */
+    }
+</style>
+<body>
+    {% if employee == None %}
+    <table border="1">
+        <tr>
+            <td>Horario</td>
+            <td>Funcionario</td>
+        </tr>
 
-    <label for="funcionario">Consultar por Funcionário:</label>
-    <input type="text" name="funcionario" id="funcionario" required><br>
-
-    <input type="submit" value="Pesquisar">
-
-    <u1 class="list-group list-group-flush">
-        <br>
         {% for schedule in schedules %}
-            <li class="list-group list-group-item"> Horário: {{ schedule.data}} - Funcionário: {{ employee }} </li>
+        <tr>
+            <td>{{ schedule.data }}</td>  
+            <td>{{ schedule.responsible.name }}</td>
+        </tr>
         {% endfor %}
-    </u1>
-</form>
+    </table>
+    {% endif %}
 
+    {% if employee != None %}
+    <table border="1">
+        <tr>
+            <td>Horario</td>
+            <td>Funcionario</td>
+        </tr>
+        {% for schedule in spec_schedules %}
+        <tr>
+            <td>{{ schedule.data }}</td>  
+            <td>{{ employee }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <br>
+    <form action="/search" method="post">
+        <label for="funcionario">Filtrar por Funcionário:</label>
+        <input type="text" name="funcionario" id="funcionario" required><br>
+        <input type="submit" value="Pesquisar">
+    </form>
+</body>
 {% endblock %}

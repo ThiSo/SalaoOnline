@@ -79,36 +79,45 @@ def sign_up_employee():
 
 @login_required
 def alter_employee():
+    if request.method == 'POST':
+        funcionario_pesquisado = request.form.get('funcionario')
+        campo_escolhido = request.form.get('atributo')
+        nova_informacao = request.form.get('nova_info')
+
+        user = User.query.filter_by(name=funcionario_pesquisado).first()
+        if user:
+            match campo_escolhido:
+                case "name":
+                    user.name = nova_informacao
+                case "email":
+                    user.email = nova_informacao
+                case "password":
+                    user.password = nova_informacao
+                case "age":
+                    user.age = nova_informacao
+                case "phone":
+                    user.phone = nova_informacao
+            db.session.commit()
+            flash('Informações atualizadas com sucesso!', category='sucess') 
+        else:
+            flash('Este funcionario não existe!', category='error')
     return render_template("alter_employee.html", title='Alter Employee', user=current_user)
 
 
+@login_required
 def search():  
     if request.method == 'POST':
-        # horario = request.form.get('horario')
         funcionario_pesquisado = request.form.get('funcionario')
-
         funcionarios = User.query.filter_by(type='F').all()
         for funcionario in funcionarios:
             if funcionario.name == funcionario_pesquisado:
                 horarios_disponiveis = Schedule.query.filter_by(user_id=funcionario.id).all()
-                return render_template('search.html', user=current_user, employee=funcionario_pesquisado, schedules=horarios_disponiveis)
-            else:
-                flash('Funcionario inexistente!', category='error')
-                return render_template('search.html', user=current_user)
+
+        if horarios_disponiveis != None:
+            return render_template('search.html', user=current_user, employee=funcionario_pesquisado, spec_schedules=horarios_disponiveis)
+        else:
+            flash('Funcionario inexistente!', category='error')
+            return render_template('search.html', user=current_user)
     else:
-        return render_template('search.html', user=current_user)
-
-"""
-Formato que search deve seguir
-def search():
-    if request.method == 'POST':
-        horario = request.form.get('horario')
-        funcionario = request.form.get('funcionario')
-
-        # Realize a lógica de pesquisa com base no horário e funcionário selecionados
-
-        # Renderize o template com os resultados
-        return render_template('search_results.html', results=results)
-    else:
-        return render_template('search.html')
-    """
+        horarios_disponiveis = Schedule.query.all()
+        return render_template('search.html', user=current_user, schedules=horarios_disponiveis, employee=None)

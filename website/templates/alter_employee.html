@@ -3,4 +3,22 @@
 {% block content %}
 <br>
 <h1 align="center">Alterar Funcionário</h1>
+<form method="POST">
+
+    <label for="funcionario">Nome do Funcionário:</label>
+    <input type="text" name="funcionario" id="funcionario" required><br>
+
+    <label for="atributo">Informação a atualizar:</label>
+    <select name="atributo" id="atributo" required>
+        <option value=""> Escolha uma informação </option>
+        <option value="name">Nome</option>
+        <option value="email">Email</option>
+        <option value="password">Senha</option>
+        <option value="age">Idade</option>
+        <option value="phone">Telefone</option>
+    </select><br>
+    <label for="novo_funcionario">Informação atualizada:</label>
+    <input type="text" name="nova_info" id="nova_info" required><br>
+    <br>
+    <input type="submit" value="Atualizar">
 {% endblock %}
