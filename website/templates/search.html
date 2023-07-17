@@ -17,7 +17,7 @@
             <td>Horario</td>
             <td>Funcionario</td>
             <td>Status</td>
-            {% if user.type == 'F' %}
+            {% if user.type != 'C' %}
                 <td>Cliente</td>
             {% endif %}
         </tr>
@@ -31,7 +31,7 @@
             {% else %}
                 <td>Disponível</td>
             {% endif %}
-            {% if user.type == 'F' %}
+            {% if user.type != 'C' %}
                 <td>{{ schedule.client }}</td>
             {% endif %}
         </tr>
@@ -45,7 +45,7 @@
             <td>Horario</td>
             <td>Funcionario</td>
             <td>Status</td>
-            {% if user.type == 'F' %}
+            {% if user.type != 'C' %}
                 <td>Cliente</td>
             {% endif %}
         </tr>
@@ -58,7 +58,7 @@
             {% else %}
                 <td>Disponível</td>
             {% endif %}
-            {% if user.type == 'F' %}
+            {% if user.type != 'C' %}
                 <td>{{ schedule.client }}</td>
             {% endif %}
         </tr>
