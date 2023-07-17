@@ -1,0 +1,18 @@
+{% extends "base.html" %} 
+
+{% block content %}
+<br>
+<style>
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 75vh;
+    }
+</style>
+<body>
+    <div class="center">
+        <img align='center' src="{{url_for('static', filename='/Image/logo.png')}}">
+    </div>
+</body>
+{% endblock %}

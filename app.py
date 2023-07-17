@@ -8,7 +8,7 @@ from website.routes.auth_bp import auth_bp
 
 
 def create_app():
-    app = Flask(__name__, template_folder='website/templates')
+    app = Flask(__name__, template_folder='website/templates', static_folder='website/static')
     app.config.from_object('config')
 
 
