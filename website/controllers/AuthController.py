@@ -24,22 +24,22 @@ def login():
         else:
             flash('Este email não existe!', category='error')
 
-    return render_template("login.html", title='login', user='current_user')
+    return render_template("login.html", title='Login', user='current_user')
 
 
 @login_required
 def client_page():
-    return render_template("client_page.html", title='Client Page', user=current_user)
+    return render_template("client_page.html", title='Cliente', user=current_user)
 
 
 @login_required
 def employee_page():
-    return render_template("employee_page.html", title='Employee Page', user=current_user)
+    return render_template("employee_page.html", title='Funcionário', user=current_user)
 
 
 @login_required
 def manager_page():
-    return render_template("manager_page.html", title='Manager Page', user=current_user)
+    return render_template("manager_page.html", title='Gerente', user=current_user)
 
 
 

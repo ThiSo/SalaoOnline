@@ -3,11 +3,11 @@
 {% block content %}
 
 <br>
-<h1>Consultar horários disponíveis</h1>
+<h1>Consultar horários</h1>
 <br>
 <style>
     td, th {
-        padding: 10px; /* Define o espaçamento interno das células */
+        padding: 10px;
     }
 </style>
 <body>
@@ -16,12 +16,24 @@
         <tr>
             <td>Horario</td>
             <td>Funcionario</td>
+            <td>Status</td>
+            {% if user.type == 'F' %}
+                <td>Cliente</td>
+            {% endif %}
         </tr>
 
         {% for schedule in schedules %}
         <tr>
             <td>{{ schedule.data }}</td>  
             <td>{{ schedule.responsible.name }}</td>
+            {% if schedule.client != '' %}
+                <td>Reservado</td>
+            {% else %}
+                <td>Disponível</td>
+            {% endif %}
+            {% if user.type == 'F' %}
+                <td>{{ schedule.client }}</td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>
@@ -32,11 +44,23 @@
         <tr>
             <td>Horario</td>
             <td>Funcionario</td>
+            <td>Status</td>
+            {% if user.type == 'F' %}
+                <td>Cliente</td>
+            {% endif %}
         </tr>
         {% for schedule in spec_schedules %}
         <tr>
             <td>{{ schedule.data }}</td>  
             <td>{{ employee }}</td>
+            {% if schedule.client != '' %}
+                <td>Reservado</td>
+            {% else %}
+                <td>Disponível</td>
+            {% endif %}
+            {% if user.type == 'F' %}
+                <td>{{ schedule.client }}</td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>

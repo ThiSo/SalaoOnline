@@ -6,9 +6,8 @@ from ..database import db
 class Schedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10))
-    # date = db.Column(db.DateTime(timezone=True), default=func.now())
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
+    employee = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    client = db.Column(db.String(150))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
