@@ -5,8 +5,13 @@
 <h1>Alterar Funcionário</h1>
 <form method="POST">
 
-    <label for="funcionario">Nome do Funcionário:</label>
-    <input type="text" name="funcionario" id="funcionario" required><br>
+    <label for="funcionario">Funcionário:</label>
+        <select name="nome" id="funcionario" required>
+        <option value="">Selecione um funcionário</option>
+        {% for employee in employees %}
+            <option value="{{ employee.name }}">{{ employee.name }}</option>
+        {% endfor %}
+    </select><br>
 
     <label for="atributo">Informação a atualizar:</label>
     <select name="atributo" id="atributo" required>

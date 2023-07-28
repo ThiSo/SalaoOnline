@@ -79,6 +79,8 @@ def sign_up_employee():
 
 @login_required
 def alter_employee():
+    all_employees = User.query.filter_by(type='F').all()
+
     if request.method == 'POST':
         funcionario_pesquisado = request.form.get('funcionario')
         campo_escolhido = request.form.get('atributo')
@@ -101,23 +103,45 @@ def alter_employee():
             flash('Informações atualizadas com sucesso!', category='sucess') 
         else:
             flash('Este funcionario não existe!', category='error')
-    return render_template("alter_employee.html", title='Alterar Funcionário', user=current_user)
+    return render_template("alter_employee.html", title='Alterar Funcionário', user=current_user, employees=all_employees)
 
 
 @login_required
 def search():  
+    funcionarios = User.query.filter_by(type='F').all()
+
     if request.method == 'POST':
         funcionario_pesquisado = request.form.get('funcionario')
-        funcionarios = User.query.filter_by(type='F').all()
         for funcionario in funcionarios:
             if funcionario.name == funcionario_pesquisado:
                 horarios_disponiveis = Schedule.query.filter_by(employee=funcionario.id).all()
 
         if horarios_disponiveis != None:
-            return render_template('search.html', title='Consultar Horários', user=current_user, employee=funcionario_pesquisado, spec_schedules=horarios_disponiveis)
+            return render_template('search.html', title='Consultar Horários', user=current_user, employee=funcionario_pesquisado, employees=funcionarios, spec_schedules=horarios_disponiveis)
         else:
             flash('Funcionario inexistente!', category='error')
-            return render_template('search.html', title='Consultar Horários', user=current_user)
+            return render_template('search.html', title='Consultar Horários', user=current_user, employees=funcionarios)
     else:
         horarios_disponiveis = Schedule.query.all()
-        return render_template('search.html', title='Consultar Horários', user=current_user, schedules=horarios_disponiveis, employee=None)
+        return render_template('search.html', title='Consultar Horários', user=current_user, schedules=horarios_disponiveis, employees=funcionarios, employee=None)
+
+
+@login_required
+def new_schedule(): 
+    all_employees = User.query.filter_by(type='F').all()
+
+    if request.method =='POST':
+        schedule_data = request.form.get('data')
+        employee_name = request.form.get('employee_name')
+
+        employee = User.query.filter_by(name=employee_name).first()
+
+        if not employee:
+            flash('Este funcionário não existe.', category='error')
+        else:
+            id_employee = employee.id
+            new_schedule = Schedule(data=schedule_data, employee=id_employee, client="")
+            db.session.add(new_schedule)
+            db.session.commit()
+            flash('Horário lançado no sistema com sucesso!', category='sucess') 
+    return render_template("new_schedule.html", title='Disponibilizar Horário', user=current_user, employees=all_employees)

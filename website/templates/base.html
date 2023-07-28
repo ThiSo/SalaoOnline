@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      div {
-        margin-bottom: 10px;
-      }
-      label {
-        display: inline-block;
-        width: 150px;
-      }
-    </style>
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='/Image/favicon.png')}}">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -42,7 +34,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-          <a class="nav-item nav-link" id="home" href="/">Página inicial</a>
+          <a class="nav-item nav-link" id="home" href="/">
+            <img src="{{url_for('static', filename='/Image/Fonte.png')}}" alt="Logotipo" width="120" height="30" class="d-inline-block align-text-top">
+          </a>
+          <a class="nav-item nav-link">|</a>
           {% if user.is_authenticated %}           
             {% if user.type == 'C' %}
               <a class="nav-item nav-link" id="client_page" href="/client_page">Página inicial - Cliente</a>
@@ -50,14 +45,24 @@
               <a class="nav-item nav-link" id="employee_page" href="/employee_page">Página inicial - Funcionário</a>
             {% else %}
               <a class="nav-item nav-link" id="manager_page" href="/manager_page">Página inicial - Gerente</a>
+              <a class="nav-item nav-link">|</a>
               <a class="nav-item nav-link" id="sign_up_employee" href="/sign_up_employee">Cadastrar Funcionário</a>
+              <a class="nav-item nav-link">|</a>
               <a class="nav-item nav-link" id="alter_employee" href="/alter_employee">Alterar Funcionário</a>
+              <a class="nav-item nav-link">|</a>
+              <a class="nav-item nav-link" id="new_schedule" href="/new_schedule">Disponibilizar Horário</a>
             {% endif %}
+            <a class="nav-item nav-link">|</a>
             <a class="nav-item nav-link" id="search" href="/search">Consultar Horarios</a>
-            <a class="nav-item nav-link" id="logout" href="/logout">Sair</a>
           {% else %}
             <a class="nav-item nav-link" id="signUp" href="/sign-up">Cadastrar</a>  
+            <a class="nav-item nav-link">|</a>
             <a class="nav-item nav-link" id="login" href="/login">Login</a>
+          {% endif %}
+        </div>
+        <div class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+            <a class="nav-item nav-link" id="logout" href="/logout">Sair</a>
           {% endif %}
         </div>
       </div>
