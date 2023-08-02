@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<h1>Histórico de Atendimentos</h1>
+<br>
+<style>
+    /* Apply general styling for tables */
+    .employee-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        table-layout: fixed;
+    }
+
+    .employee-table th,
+    .employee-table td {
+        padding: 10px;
+        border: 1px solid black;
+        text-align: left;
+        width: 25%;
+    }
+</style>
+
+<body>
+    {% for employee in employees %}
+    <div class="employee-table-container">
+        <table class="employee-table">
+            <tr>
+                <th>E-mail</th>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Telefone</th>
+            </tr>
+            <tr>
+                <td>{{employee.email}}</td>
+                <td>{{employee.name}}</td>
+                <td>{{employee.age}}</td>
+                <td>{{employee.phone}}</td>
+            </tr>
+        </table>
+    </div>
+    {% endfor %}
+</body>
+{% endblock %}

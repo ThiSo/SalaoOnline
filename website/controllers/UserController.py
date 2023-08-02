@@ -76,6 +76,12 @@ def sign_up_employee():
             flash('Funcionario cadastrado com sucesso!', category='sucess')
     return render_template("sign_up_employee.html", title='Cadastrar Funcionário', user=current_user)
 
+# esta versão do historico mostra uma listagem de funcionarios pois
+# a tabela de atendimentos ainda não foi implementada
+@login_required
+def history():
+    funcionarios = User.query.filter_by(type='F').all()
+    return render_template("history.html", title='Histórico', user=current_user, employees=funcionarios)
 
 @login_required
 def alter_employee():
