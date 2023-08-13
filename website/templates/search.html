@@ -68,8 +68,13 @@
 
     <br>
     <form action="/search" method="post">
-        <label for="funcionario">Filtrar por Funcionário:</label>
-        <input type="text" name="funcionario" id="funcionario" required><br>
+        <label for="funcionario">Filtrar por funcionário:</label>
+        <select name="funcionario" id="funcionario" required>
+        <option value="">Selecione um funcionário</option>
+        {% for employee in employees %}
+            <option value="{{ employee.name }}">{{ employee.name }}</option>
+        {% endfor %}
+        </select><br>
         <input type="submit" value="Pesquisar">
     </form>
 </body>

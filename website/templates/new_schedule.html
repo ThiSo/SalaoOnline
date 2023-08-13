@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<h1>Disponibilizar Horário</h1>
+
+<form method="POST">
+    <br>
+    <div class="form group">
+        <label for="funcionario">Funcionário:</label>
+        <select name="employee_name" id="employee_name" required>
+        <option value="">Selecione um funcionário</option>
+        {% for employee in employees %}
+            <option value="{{ employee.name }}">{{ employee.name }}</option>
+        {% endfor %}
+        </select><br>
+    </div>
+    <div class="form group">
+        <label for="horario">Horário:</label>
+        <select name="data" id="data" required>
+        <option value="">Selecione um horário</option>
+        {% for hour in range(8, 21) %}
+            {% for minute in ['00', '30'] %}
+                <option value="{{ hour }}:{{ minute }}">{{ hour }}:{{ minute }}</option>
+            {% endfor %}
+        {% endfor %}
+        </select><br>
+    </div>
+    <button type="submit" class="btn btn-primary">Disponibilizar Horário</button>
+</form>
+{% endblock %}
