@@ -52,6 +52,8 @@ def new_schedule():
     if request.method == 'POST':
         schedule_data = request.form.get('data')
         employee_name = request.form.get('employee_name')
+        schedule_date = request.form.get('date')
+        schedule_type = request.form.get('type')
 
         employee = User.query.filter_by(name=employee_name).first()
 
@@ -59,7 +61,7 @@ def new_schedule():
             flash('Este funcionário não existe.', category='error')
         else:
             id_employee = employee.id
-            new_schedule = Schedule(data=schedule_data, employee=id_employee)
+            new_schedule = Schedule(data=schedule_data, employee=id_employee, date=schedule_date, type=schedule_type)
             db.session.add(new_schedule)
             db.session.commit()
             flash('Horário lançado no sistema com sucesso!', category='sucess')
