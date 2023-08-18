@@ -1,10 +1,12 @@
 from flask import Flask
-#from flask_sqlalchemy import SQLAlchemy
-#from os import path
+from flask_sqlalchemy import SQLAlchemy
+from os import path
 from flask_login import LoginManager
 
 from website.routes.user_bp import user_bp
 from website.routes.auth_bp import auth_bp
+from website.routes.schedule_bp import schedule_bp
+from website.routes.service_bp import service_bp
 
 
 def create_app():
@@ -17,8 +19,10 @@ def create_app():
 
     app.register_blueprint(user_bp, url_prefix='')
     app.register_blueprint(auth_bp, url_prefix='')
+    app.register_blueprint(schedule_bp, url_prefix='')
+    app.register_blueprint(service_bp, url_prefix='')
 
-    from website.models.models import User, Schedule
+    from website.models.models import User, Schedule, Service
 
     with app.app_context():
         db.create_all()

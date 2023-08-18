@@ -6,8 +6,9 @@ from ..database import db
 class Schedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10))
+    date = db.Column(db.String(10))
+    type = db.Column(db.String(1))
     employee = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    client = db.Column(db.String(150))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,3 +19,11 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(20))
     type = db.Column(db.String(1))
     schedules = db.relationship('Schedule', backref='responsible', lazy=True)
+
+class Service(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    client_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    schedule_id = db.Column(db.Integer, db.ForeignKey('schedule.id'), nullable=False)
+    paid = db.Column(db.Integer)
+    status_service = db.Column(db.Integer)
+

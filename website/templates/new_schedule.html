@@ -16,6 +16,23 @@
         </select><br>
     </div>
     <div class="form group">
+        <label for="type">Tipo de serviço:</label>
+        <select name="type" id="type" required>
+            <option value="">Selecione um tipo</option>
+            <option value="Corte de Cabelo">Corte de Cabelo</option>
+            <option value='Pintura de Unhas'>Pintura de Unhas</option>
+        </select><br>
+    </div>
+    <div class="form group">
+        <label for="dia">Dia:</label>
+        <select name="date" id="date" required>
+        <option value="">Selecione um dia</option>
+        {% for day in range(1, 31) %}
+            <option value="{{ day }}">{{ day }}</option>
+        {% endfor %}
+        </select><br>
+    </div>
+    <div class="form group">
         <label for="horario">Horário:</label>
         <select name="data" id="data" required>
         <option value="">Selecione um horário</option>

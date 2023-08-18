@@ -15,24 +15,46 @@
     <table border="1">
         <tr>
             <td>Horario</td>
+            <td>Serviço</td>
             <td>Funcionario</td>
             <td>Status</td>
             {% if user.type != 'C' %}
                 <td>Cliente</td>
             {% endif %}
+            {% if user.type == 'C' %}
+                <td>Ações</td>
+            {% endif %}
         </tr>
 
         {% for schedule in schedules %}
         <tr>
-            <td>{{ schedule.data }}</td>  
-            <td>{{ schedule.responsible.name }}</td>
-            {% if schedule.client != '' %}
+            <td>Dia {{ schedule.Schedule.date }} às {{ schedule.Schedule.data }}</td> 
+            {% if schedule.Schedule.type == 'Corte de Cabelo' %}
+                <td>Corte de Cabelo</td> 
+            {% else %}
+                <td>Pintura de Unhas</td> 
+            {% endif %}
+            <td>{{ schedule.Schedule.responsible.name }}</td>
+            {% if schedule.Service %}
                 <td>Reservado</td>
             {% else %}
                 <td>Disponível</td>
             {% endif %}
             {% if user.type != 'C' %}
-                <td>{{ schedule.client }}</td>
+                {% if schedule.User %}
+                    <td>{{ schedule.User.name }}</td>
+                {% endif %}
+            {% endif %}
+            {% if user.type == 'C' and not schedule.Service %}
+                <form action="/schedule_time" method="post">
+                <input type="hidden" id="schedule_id" name="schedule_id" value="{{ schedule.Schedule.id }}" />
+                <td><input type="submit" value="agendar horário" /></td>
+                </form>
+            {% elif user.type == 'C' and schedule.Service.client_id == user.id %}
+                <form action="/cancel_time" method="post">
+                <input type="hidden" id="service_id" name="service_id" value="{{ schedule.Service.id }}" />
+                <td><input type="submit" value="desmarcar horário" /></td>
+                </form>
             {% endif %}
         </tr>
         {% endfor %}
@@ -43,23 +65,45 @@
     <table border="1">
         <tr>
             <td>Horario</td>
+            <td>Serviço</td>
             <td>Funcionario</td>
             <td>Status</td>
             {% if user.type != 'C' %}
                 <td>Cliente</td>
             {% endif %}
+            {% if user.type == 'C' %}
+                <td>Ações</td>
+            {% endif %}
         </tr>
         {% for schedule in spec_schedules %}
         <tr>
-            <td>{{ schedule.data }}</td>  
+            <td>Dia {{ schedule.Schedule.date }} às {{ schedule.Schedule.data }}</td> 
+            {% if schedule.Schedule.type == 'Corte de Cabelo' %}
+                <td>Corte de Cabelo</td> 
+            {% else %}
+                <td>Pintura de Unhas</td> 
+            {% endif %}  
             <td>{{ employee }}</td>
-            {% if schedule.client != '' %}
+            {% if schedule.User %}
                 <td>Reservado</td>
             {% else %}
                 <td>Disponível</td>
             {% endif %}
             {% if user.type != 'C' %}
-                <td>{{ schedule.client }}</td>
+                {% if schedule.User %}
+                    <td>{{ schedule.User.name }}</td>
+                {% endif %}
+            {% endif %}
+            {% if user.type == 'C' and not schedule.User %}
+                <form action="/schedule_time" method="post">
+                <input type="hidden" id="schedule_id" name="schedule_id" value="{{ schedule.Schedule.id }}" />
+                <td><input type="submit" value="agendar horário" /></td>
+                </form>
+            {% elif user.type == 'C' and schedule.Service.client_id == user.id %}
+                <form action="/cancel_time" method="post">
+                <input type="hidden" id="service_id" name="service_id" value="{{ schedule.Service.id }}" />
+                <td><input type="submit" value="desmarcar horário" /></td>
+                </form>
             {% endif %}
         </tr>
         {% endfor %}
@@ -77,5 +121,6 @@
         </select><br>
         <input type="submit" value="Pesquisar">
     </form>
+    <br>
 </body>
 {% endblock %}

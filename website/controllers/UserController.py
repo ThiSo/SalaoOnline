@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request, flash, redirect
 from werkzeug.security import generate_password_hash
 from flask_login import login_user, login_required, current_user
-from ..models.models import User, Schedule
+from ..models.models import User, Schedule, Service
 
 from ..database import db
+from pprint import pprint
 
 def signup():
     if request.method =='POST':
@@ -38,7 +39,7 @@ def signup():
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Conta criada com sucesso!', category='sucess')
-            return redirect('home')
+            return render_template("home.html", user=current_user)
 
     return render_template("sign_up.html", title='Cadastrar', user=current_user)
 
@@ -76,12 +77,6 @@ def sign_up_employee():
             flash('Funcionario cadastrado com sucesso!', category='sucess')
     return render_template("sign_up_employee.html", title='Cadastrar Funcionário', user=current_user)
 
-# esta versão do historico mostra uma listagem de funcionarios pois
-# a tabela de atendimentos ainda não foi implementada
-@login_required
-def history():
-    funcionarios = User.query.filter_by(type='F').all()
-    return render_template("history.html", title='Histórico', user=current_user, employees=funcionarios)
 
 @login_required
 def alter_employee():
@@ -110,44 +105,3 @@ def alter_employee():
         else:
             flash('Este funcionario não existe!', category='error')
     return render_template("alter_employee.html", title='Alterar Funcionário', user=current_user, employees=all_employees)
-
-
-@login_required
-def search():  
-    funcionarios = User.query.filter_by(type='F').all()
-
-    if request.method == 'POST':
-        funcionario_pesquisado = request.form.get('funcionario')
-        for funcionario in funcionarios:
-            if funcionario.name == funcionario_pesquisado:
-                horarios_disponiveis = Schedule.query.filter_by(employee=funcionario.id).all()
-
-        if horarios_disponiveis != None:
-            return render_template('search.html', title='Consultar Horários', user=current_user, employee=funcionario_pesquisado, employees=funcionarios, spec_schedules=horarios_disponiveis)
-        else:
-            flash('Funcionario inexistente!', category='error')
-            return render_template('search.html', title='Consultar Horários', user=current_user, employees=funcionarios)
-    else:
-        horarios_disponiveis = Schedule.query.all()
-        return render_template('search.html', title='Consultar Horários', user=current_user, schedules=horarios_disponiveis, employees=funcionarios, employee=None)
-
-
-@login_required
-def new_schedule(): 
-    all_employees = User.query.filter_by(type='F').all()
-
-    if request.method =='POST':
-        schedule_data = request.form.get('data')
-        employee_name = request.form.get('employee_name')
-
-        employee = User.query.filter_by(name=employee_name).first()
-
-        if not employee:
-            flash('Este funcionário não existe.', category='error')
-        else:
-            id_employee = employee.id
-            new_schedule = Schedule(data=schedule_data, employee=id_employee, client="")
-            db.session.add(new_schedule)
-            db.session.commit()
-            flash('Horário lançado no sistema com sucesso!', category='sucess') 
-    return render_template("new_schedule.html", title='Disponibilizar Horário', user=current_user, employees=all_employees)
