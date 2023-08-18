@@ -7,6 +7,7 @@ class Schedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10))
     date = db.Column(db.String(10))
+    type = db.Column(db.String(1))
     employee = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class User(db.Model, UserMixin):

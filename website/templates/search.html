@@ -15,6 +15,7 @@
     <table border="1">
         <tr>
             <td>Horario</td>
+            <td>Serviço</td>
             <td>Funcionario</td>
             <td>Status</td>
             {% if user.type != 'C' %}
@@ -27,7 +28,12 @@
 
         {% for schedule in schedules %}
         <tr>
-            <td>Dia {{ schedule.Schedule.date }} às {{ schedule.Schedule.data }}</td>  
+            <td>Dia {{ schedule.Schedule.date }} às {{ schedule.Schedule.data }}</td> 
+            {% if schedule.Schedule.type == 'Corte de Cabelo' %}
+                <td>Corte de Cabelo</td> 
+            {% else %}
+                <td>Pintura de Unhas</td> 
+            {% endif %}
             <td>{{ schedule.Schedule.responsible.name }}</td>
             {% if schedule.Service %}
                 <td>Reservado</td>
@@ -59,6 +65,7 @@
     <table border="1">
         <tr>
             <td>Horario</td>
+            <td>Serviço</td>
             <td>Funcionario</td>
             <td>Status</td>
             {% if user.type != 'C' %}
@@ -70,7 +77,12 @@
         </tr>
         {% for schedule in spec_schedules %}
         <tr>
-            <td>Dia {{ schedule.Schedule.date }} às {{ schedule.Schedule.data }}</td>   
+            <td>Dia {{ schedule.Schedule.date }} às {{ schedule.Schedule.data }}</td> 
+            {% if schedule.Schedule.type == 'Corte de Cabelo' %}
+                <td>Corte de Cabelo</td> 
+            {% else %}
+                <td>Pintura de Unhas</td> 
+            {% endif %}  
             <td>{{ employee }}</td>
             {% if schedule.User %}
                 <td>Reservado</td>
