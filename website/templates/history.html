@@ -30,17 +30,34 @@
                 <th>Cliente</th>
                 <th>Funcionário</th>
                 <th>Data</th>
+                <th>Hora</th>
+                <th>Tipo</th>
+                <th>Idade</th>
             </tr>
             <tr>
-                {% print(service.name) %}
-                {% print(service.name) %}
-                {% print(service.name) %}
                 <td>{{service.User.name}}</td>
                 <td>{{service.Schedule.responsible.name}}</td>
+                <td>{{service.Schedule.date}}</td>
                 <td>{{service.Schedule.data}}</td>
+                <td>{{service.Schedule.type}}</td> 
+                <td>{{service.User.age}}</td>
             </tr>
         </table>
     </div>
     {% endfor %}
+
+    <!-- Espaço para a Soma dos ganhos -->
+    <div>
+        <h2>Ganhos totais</h2>
+        <p>{{ soma_de_ganhos }}</p>
+    </div>
+
+    <!-- Espaço para a Média dos ganhos-->
+    <div>
+        <h2>Média dos ganhos</h2>
+        <p>{{ media_de_ganhos }}</p>
+    </div>
+
+
 </body>
 {% endblock %}

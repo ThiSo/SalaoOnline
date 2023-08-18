@@ -16,7 +16,16 @@ def history():
         join(Service, Service.schedule_id == Schedule.id).\
         join(User, User.id == Service.client_id).\
         all()
-    return render_template("history.html", title='Histórico', user=current_user, services=atendimentos)
+    
+    total_ganhos = 0
+
+    for atendimento in atendimentos:
+        total_ganhos += atendimento.User.age #atendimento.User.age deve ser trocado para o custo do atendimento
+
+    total_atendimentos = len(atendimentos)
+    media_ganhos = total_ganhos/total_atendimentos
+
+    return render_template("history.html", title='Histórico', user=current_user, services=atendimentos, soma_de_ganhos=total_ganhos, media_de_ganhos=media_ganhos)
 
 
 @login_required
