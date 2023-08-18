@@ -39,7 +39,7 @@ def signup():
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Conta criada com sucesso!', category='sucess')
-            return redirect('home')
+            return render_template("home.html", user=current_user)
 
     return render_template("sign_up.html", title='Cadastrar', user=current_user)
 

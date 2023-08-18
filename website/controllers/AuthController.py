@@ -13,33 +13,13 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logado com sucesso!', category='sucess')
                 login_user(user, remember=True)
-                if user.type == 'C':
-                    return redirect('client_page')
-                elif user.type == 'F':
-                    return redirect('employee_page')
-                else:
-                    return redirect('manager_page')
+                return render_template("home.html", user=current_user)
             else:
                 flash('Senha incorreta!', category='error')
         else:
             flash('Este email não existe!', category='error')
 
     return render_template("login.html", title='Login', user='current_user')
-
-
-@login_required
-def client_page():
-    return render_template("client_page.html", title='Cliente', user=current_user)
-
-
-@login_required
-def employee_page():
-    return render_template("employee_page.html", title='Funcionário', user=current_user)
-
-
-@login_required
-def manager_page():
-    return render_template("manager_page.html", title='Gerente', user=current_user)
 
 
 @login_required

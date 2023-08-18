@@ -27,7 +27,7 @@
 
         {% for schedule in schedules %}
         <tr>
-            <td>{{ schedule.Schedule.data }}</td>  
+            <td>Dia {{ schedule.Schedule.date }} às {{ schedule.Schedule.data }}</td>  
             <td>{{ schedule.Schedule.responsible.name }}</td>
             {% if schedule.Service %}
                 <td>Reservado</td>
@@ -70,7 +70,7 @@
         </tr>
         {% for schedule in spec_schedules %}
         <tr>
-            <td>{{ schedule.Schedule.data }}</td>  
+            <td>Dia {{ schedule.Schedule.date }} às {{ schedule.Schedule.data }}</td>   
             <td>{{ employee }}</td>
             {% if schedule.User %}
                 <td>Reservado</td>
@@ -109,5 +109,6 @@
         </select><br>
         <input type="submit" value="Pesquisar">
     </form>
+    <br>
 </body>
 {% endblock %}

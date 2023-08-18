@@ -1,6 +1,6 @@
 from flask import Flask
-#from flask_sqlalchemy import SQLAlchemy
-#from os import path
+from flask_sqlalchemy import SQLAlchemy
+from os import path
 from flask_login import LoginManager
 
 from website.routes.user_bp import user_bp
