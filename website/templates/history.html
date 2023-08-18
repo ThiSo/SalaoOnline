@@ -23,20 +23,21 @@
 </style>
 
 <body>
-    {% for employee in employees %}
+    {% for service in services %}
     <div class="employee-table-container">
         <table class="employee-table">
             <tr>
-                <th>E-mail</th>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Telefone</th>
+                <th>Cliente</th>
+                <th>Funcionário</th>
+                <th>Data</th>
             </tr>
             <tr>
-                <td>{{employee.email}}</td>
-                <td>{{employee.name}}</td>
-                <td>{{employee.age}}</td>
-                <td>{{employee.phone}}</td>
+                {% print(service.name) %}
+                {% print(service.name) %}
+                {% print(service.name) %}
+                <td>{{service.User.name}}</td>
+                <td>{{service.Schedule.responsible.name}}</td>
+                <td>{{service.Schedule.data}}</td>
             </tr>
         </table>
     </div>
