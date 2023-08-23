@@ -20,9 +20,9 @@ def history():
     total_ganhos = 0.0
 
     for atendimento in atendimentos:
-        if atendimento.Schedule.type == 'Corte de Cabelo':
+        if atendimento.Schedule.type == 'Corte de Cabelo' and atendimento.Service.status_service == 1:
             total_ganhos += 75.00 #atendimento.User.age deve ser trocado para o custo do atendimento
-        else:
+        elif atendimento.Schedule.type == 'Pintura de Unhas' and atendimento.Service.status_service == 1:
             total_ganhos += 20.00
 
     total_atendimentos = len(atendimentos)
