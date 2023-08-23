@@ -94,10 +94,12 @@
                 <td>Corte de Cabelo</td> 
             {% else %}
                 <td>Pintura de Unhas</td> 
-            {% endif %}  
+            {% endif %}
             <td>{{ employee }}</td>
-            {% if schedule.User %}
-                <td>Reservado</td>
+            {% if schedule.Service.status_service == 1 %}
+                <td>Concluido</td>
+            {% elif schedule.Service %}
+                <td>Reservado teta {{schedule.Service.status }} </td>
             {% else %}
                 <td>Disponível</td>
             {% endif %}
@@ -134,5 +136,32 @@
         <input type="submit" value="Pesquisar">
     </form>
     <br>
+
+    {% if employee == None %}
+        {% if user.type != 'C' %}
+            <br>
+            <form action="/check_time" method="post">
+                <label for="cliente">{{user.name}}, escolha qual cliente já concluiu o serviço:</label>
+                <select name="cliente" id="cliente" required>
+                <option value="">Selecione um cliente</option>
+                {% for schedule in schedules %}
+                    {% if user.type == 'F' %}
+                        {% if schedule.Schedule.responsible.name == user.name and schedule.Service and schedule.Service.status_service != 1 and schedule.Service.paid == 1%}
+                            <option value="{{schedule.Service.id}}">{{schedule.User.name}}</option>
+                        {% endif %}
+                    {% else %}
+                        {% if schedule.Service and schedule.Service.status_service != 1 and schedule.Service.paid == 1%}
+                            <option value="{{schedule.Service.id}}">{{schedule.User.name}}</option>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                </select><br>
+                <input type="submit" value="Concluir">
+            </form>
+            <br>
+        {% endif %}
+    {% endif %}
 </body>
+
+
 {% endblock %}
