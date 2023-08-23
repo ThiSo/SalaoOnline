@@ -44,7 +44,7 @@
             {% if user.type != 'C' %}
                 {% if schedule.User %}
                     <td>{{ schedule.User.name }}</td>
-                    {% if schedule.Service.paid == 0 %}
+                    {% if schedule.Service.paid == 0 and ( schedule.Schedule.responsible.name == user.name or user.type == 'M') %}
                         <form action="/pay_service" method="post">
                         <input type="hidden" id="service_id" name="service_id" value="{{ schedule.Service.id }}" />
                         <td><input type="submit" value="confirmar pagamento" /></td>
