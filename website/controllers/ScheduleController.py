@@ -17,13 +17,16 @@ def history():
         join(User, User.id == Service.client_id).\
         all()
     
-    total_ganhos = 0
+    total_ganhos = 0.0
 
     for atendimento in atendimentos:
-        total_ganhos += atendimento.User.age #atendimento.User.age deve ser trocado para o custo do atendimento
+        if atendimento.Schedule.type == 'Corte de Cabelo':
+            total_ganhos += 75.00 #atendimento.User.age deve ser trocado para o custo do atendimento
+        else:
+            total_ganhos += 20.00
 
     total_atendimentos = len(atendimentos)
-    media_ganhos = total_ganhos/total_atendimentos
+    media_ganhos = round(total_ganhos/total_atendimentos, 2)
 
     return render_template("history.html", title='Histórico', user=current_user, services=atendimentos, soma_de_ganhos=total_ganhos, media_de_ganhos=media_ganhos)
 

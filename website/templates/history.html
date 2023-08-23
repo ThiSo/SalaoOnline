@@ -32,7 +32,7 @@
                 <th>Data</th>
                 <th>Hora</th>
                 <th>Tipo</th>
-                <th>Idade</th>
+                <th>Valor</th>
             </tr>
             <tr>
                 <td>{{service.User.name}}</td>
@@ -43,8 +43,12 @@
                     <td>{{service.Schedule.date}}/08/2023</td>
                 {% endif %}
                 <td>{{service.Schedule.data}}</td>
-                <td>{{service.Schedule.type}}</td> 
-                <td>{{service.User.age}}</td>
+                <td>{{service.Schedule.type}}</td>
+                {% if service.Schedule.type == 'Corte de Cabelo' %}
+                    <td> R$ 75,00 </td>
+                {% else %}
+                    <td> R$ 20,00 </td> 
+                {% endif %}
             </tr>
         </table>
     </div>
@@ -53,13 +57,13 @@
     <!-- Espaço para a Soma dos ganhos -->
     <div>
         <h2>Ganhos totais</h2>
-        <p>{{ soma_de_ganhos }}</p>
+        <p> R$ {{ soma_de_ganhos }}</p>
     </div>
 
     <!-- Espaço para a Média dos ganhos-->
     <div>
         <h2>Média dos ganhos</h2>
-        <p>{{ media_de_ganhos }}</p>
+        <p> R$ {{ media_de_ganhos }}</p>
     </div>
 
 
