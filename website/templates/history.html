@@ -23,23 +23,45 @@
 </style>
 
 <body>
-    {% for employee in employees %}
+    {% for service in services %}
     <div class="employee-table-container">
         <table class="employee-table">
             <tr>
-                <th>E-mail</th>
-                <th>Nome</th>
+                <th>Cliente</th>
+                <th>Funcionário</th>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Tipo</th>
                 <th>Idade</th>
-                <th>Telefone</th>
             </tr>
             <tr>
-                <td>{{employee.email}}</td>
-                <td>{{employee.name}}</td>
-                <td>{{employee.age}}</td>
-                <td>{{employee.phone}}</td>
+                <td>{{service.User.name}}</td>
+                <td>{{service.Schedule.responsible.name}}</td>
+                {% if service.Schedule.date in "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19" %}
+                    <td>{{service.Schedule.date}}/09/2023</td>
+                {% else %}
+                    <td>{{service.Schedule.date}}/08/2023</td>
+                {% endif %}
+                <td>{{service.Schedule.data}}</td>
+                <td>{{service.Schedule.type}}</td> 
+                <td>{{service.User.age}}</td>
             </tr>
         </table>
     </div>
     {% endfor %}
+
+    <!-- Espaço para a Soma dos ganhos -->
+    <div>
+        <h2>Ganhos totais</h2>
+        <p>{{ soma_de_ganhos }}</p>
+    </div>
+
+    <!-- Espaço para a Média dos ganhos-->
+    <div>
+        <h2>Média dos ganhos</h2>
+        <p>{{ media_de_ganhos }}</p>
+    </div>
+
+
 </body>
 {% endblock %}

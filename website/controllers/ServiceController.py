@@ -37,3 +37,35 @@ def cancel_time():
         db.session.rollback()
         flash('Erro ao cancelar horário!', category='error')
     return redirect('/search')
+
+@login_required
+def pay_service():  
+    service_id = int(request.form.get('service_id'))
+    Service.query.filter(Service.id==service_id).first().paid = 1
+
+    try:
+        db.session.commit()
+        flash('Pagamento confirmado com sucesso!', category='sucess')
+    except:
+        db.session.rollback()
+        flash('Erro ao confirmar pagamento!', category='error')
+    return redirect('/search')
+
+@login_required
+def check_time():
+    service_id = int(request.form.get('cliente'))
+
+    try:
+        service = Service.query.get(service_id)
+        if service:
+            service.status_service = 1 
+            
+            db.session.commit()
+            flash('Horário concluído com sucesso!', category='success')
+        else:
+            flash('Horário não encontrado!', category='error')
+    except:
+        db.session.rollback()
+        flash('Erro ao concluir horário!', category='error')
+    
+    return redirect('/search')
