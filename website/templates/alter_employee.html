@@ -6,7 +6,7 @@
 <form method="POST">
 
     <label for="funcionario">Funcionário:</label>
-        <select name="nome" id="funcionario" required>
+        <select name="funcionario" id="funcionario" required>
         <option value="">Selecione um funcionário</option>
         {% for employee in employees %}
             <option value="{{ employee.name }}">{{ employee.name }}</option>

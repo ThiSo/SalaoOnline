@@ -37,7 +37,11 @@
             <tr>
                 <td>{{service.User.name}}</td>
                 <td>{{service.Schedule.responsible.name}}</td>
-                <td>{{service.Schedule.date}}</td>
+                {% if service.Schedule.date in "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19" %}
+                    <td>{{service.Schedule.date}}/09/2023</td>
+                {% else %}
+                    <td>{{service.Schedule.date}}/08/2023</td>
+                {% endif %}
                 <td>{{service.Schedule.data}}</td>
                 <td>{{service.Schedule.type}}</td> 
                 <td>{{service.User.age}}</td>
