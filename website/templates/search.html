@@ -37,8 +37,10 @@
                 <td>Pintura de Unhas</td> 
             {% endif %}
             <td>{{ schedule.Schedule.responsible.name }}</td>
-            {% if schedule.Service %}
-                <td>Reservado</td>
+            {% if schedule.Service.status_service == 1 %}
+                <td>Concluido</td>
+            {% elif schedule.Service %}
+                <td>Reservado {{schedule.Service.status }} </td>
             {% else %}
                 <td>Disponível</td>
             {% endif %}
@@ -101,7 +103,7 @@
             {% if schedule.Service.status_service == 1 %}
                 <td>Concluido</td>
             {% elif schedule.Service %}
-                <td>Reservado teta {{schedule.Service.status }} </td>
+                <td>Reservado {{schedule.Service.status }} </td>
             {% else %}
                 <td>Disponível</td>
             {% endif %}
