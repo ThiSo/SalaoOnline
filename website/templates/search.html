@@ -28,6 +28,7 @@
         </tr>
 
         {% for schedule in schedules %}
+        {% if user.type != 'C' or (schedule.Service.paid != 1 and schedule.Service.status_service !=1) %}
         <tr>
             <td>Dia {{ schedule.Schedule.date }} às {{ schedule.Schedule.data }}</td> 
             {% if schedule.Schedule.type == 'Corte de Cabelo' %}
@@ -69,6 +70,7 @@
                 </form>
             {% endif %}
         </tr>
+        {% endif%}
         {% endfor %}
     </table>
     {% endif %}
